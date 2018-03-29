@@ -7,7 +7,7 @@ void type_good();
 void draw(char field[][30]);
 void menu(char field[][30]);
 void basic_field(char field[][30]);
-void movement(char field[][30]);
+void movement(char field[][30], int& p_x, int& p_y);
 void end_check();
 void settings();
 
@@ -20,8 +20,11 @@ int main()
     int p_y;
 
     menu(field);
-    //draw(field);
-    //while()
+    p_x=15;
+    p_y=18;
+    draw(field);
+    movement(field, p_x, p_y);
+
 
 }
 
@@ -62,16 +65,6 @@ void basic_field(char field[][30])
     for(int i=0; i<20; i++)
         for(int j=0; j<30; j++)
             field[i][j]='.';
-
-    field[18][15] = 'P';
-
-    for(int i=0; i<20; i++)
-    {
-        cout << endl;
-        for(int j=0; j<30; j++)
-            cout << field[i][j];
-    }
-
 }
 void draw(char field[][30])
 {
@@ -85,7 +78,7 @@ void draw(char field[][30])
     }
 }
 
-void movement(char field[][30])
+void movement(char field[][30], int& p_x, int& p_y)
 {
     int wsad;
     wsad = getch();
@@ -93,8 +86,24 @@ void movement(char field[][30])
     switch(wsad)
     {
     case 119:
-        field
+        field[p_y][p_x] = '.';
+        field[p_y-1][p_x]= 'P';
+        p_y--;
         break;
-    case
+    case 119:
+        field[p_y][p_x] = '.';
+        field[p_y-1][p_x]= 'P';
+        p_y--;
+        break;
+    case 119:
+        field[p_y][p_x] = '.';
+        field[p_y-1][p_x]= 'P';
+        p_y--;
+        break;
+    case 119:
+        field[p_y][p_x] = '.';
+        field[p_y-1][p_x]= 'P';
+        p_y--;
+        break;
     }
 }
