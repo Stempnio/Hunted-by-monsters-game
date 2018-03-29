@@ -22,8 +22,11 @@ int main()
     menu(field);
     p_x=15;
     p_y=18;
+    while(1)
+    {
     draw(field);
     movement(field, p_x, p_y);
+    }
 
 
 }
@@ -85,25 +88,25 @@ void movement(char field[][30], int& p_x, int& p_y)
 
     switch(wsad)
     {
-    case 119:
+    case 119: // w
         field[p_y][p_x] = '.';
-        field[p_y-1][p_x]= 'P';
         p_y--;
+        field[p_y][p_x]= 'P';
         break;
-    case 119:
+    case 115: // s
         field[p_y][p_x] = '.';
-        field[p_y-1][p_x]= 'P';
-        p_y--;
+        field[p_y+1][p_x]= 'P';
+        p_y++;
         break;
-    case 119:
+    case 97: // a
         field[p_y][p_x] = '.';
-        field[p_y-1][p_x]= 'P';
-        p_y--;
+        field[p_y][p_x-1]= 'P';
+        p_x--;
         break;
-    case 119:
+    case 100: // d
         field[p_y][p_x] = '.';
-        field[p_y-1][p_x]= 'P';
-        p_y--;
+        field[p_y][p_x+1]= 'P';
+        p_x++;
         break;
     }
 }
