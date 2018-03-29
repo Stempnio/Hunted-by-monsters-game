@@ -10,11 +10,10 @@ void draw(char field[][30]);
 void menu(char field[][30]);
 void basic_field(char field[][30]);
 void player_movement(char field[][30], int& p_x, int& p_y);
-void monster_movement(char field[][30], int m_x[5], int m_y[5], int& monster_counter);
-void end_check();
+void monster_movement(char field[][30], int m_x[100], int m_y[100], int& monster_counter);
+void end_check(char field[][30], int& p_x, int& p_y);
+void score();
 void settings();
-
-
 
 int main()
 {
@@ -22,9 +21,9 @@ int main()
     char field[20][30];
     int p_x;
     int p_y;
-    int m_x[5];
-    int m_y[5];
-    for(int i=0; i<5; i++)
+    int m_x[100];
+    int m_y[100];
+    for(int i=0; i<40; i++)
     {
     m_x[i] = rand()%29;
     m_y[i] = 1;
@@ -36,8 +35,9 @@ int main()
     while(1)
     {
     draw(field);
-    player_movement(field, p_x, p_y);
     monster_movement(field, m_x, m_y, monster_counter);
+    player_movement(field, p_x, p_y);
+    end_check(field, p_x, p_y);
     }
 
 }
@@ -142,15 +142,34 @@ void player_movement(char field[][30], int& p_x, int& p_y)
     }
 }
 
-void monster_movement(char field[][30], int m_x[5], int m_y[5], int& monster_counter)
+void monster_movement(char field[][30], int m_x[100], int m_y[100], int& monster_counter)
 {
+    if(monster_counter<100)
+    {
     for(int i=0; i<monster_counter+1; i++)
     {
-    field[m_y[i]][m_x[i]] = 'M';
-    field[m_y[i]-1][m_x[i]] = '.';
-    cout << field[m_y[i]-1][m_x[i]];
-    cout << field[m_y[i]][m_x[i]];
-    m_y[i]++;
+        if(m_y[i]<20)
+        {
+            field[m_y[i]][m_x[i]] = 'M';
+            field[m_y[i]-1][m_x[i]] = '.';
+            m_y[i]++;
+        }
     }
     monster_counter++;
+    }
+    else
+        exit(0);
+
+
 }
+
+void end_check(char field[][30], int& p_x, int& p_y)
+{
+    if(field[p_x][p_y]=='M')
+    {
+        cout << endl;
+        cout << "przegrales lamusie" << endl;
+        exit(0);
+    }
+}
+
