@@ -3,22 +3,21 @@
 
 using namespace std;
 void type_good();
-void menu();
-void draw(char field[20][30]);
-void basic_field(char field[20][30]);
+void draw(char field[][30]);
+void menu(char field[][30]);
+void basic_field(char field[][30]);
 void settings();
 
 
-    char field[20][30];
 int main()
 {
-
-    menu();
+    char field[20][30];
+    menu(field);
     draw(field);
 
 }
 
-void menu()
+void menu(char field[][30])
 {
 
 int choice;
@@ -47,14 +46,13 @@ int choice;
                 break;
         }
 }
-void basic_field();
+void basic_field(char field[][30])
 {
-
     for(int i=0; i<20; i++)
         for(int j=0; j<30; j++)
             field[i][j]='.';
 }
-void draw()
+void draw(char field[][30])
 {
     system("cls");
 
@@ -64,5 +62,9 @@ void draw()
         for(int j=0; j<30; j++)
             cout << field[i][j];
     }
+
+    for(int i=0; i<20; i++)
+        for(int j=0; j<30; j++)
+            field[i][j]='.';
 }
 
