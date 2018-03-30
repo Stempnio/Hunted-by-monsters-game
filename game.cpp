@@ -13,7 +13,7 @@ void player_movement(char field[][30], int& p_x, int& p_y);
 void monster_movement(char field[][30], int m_x[100], int m_y[100], int& p_x, int& p_y,  int& monster_counter);
 void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100],  int& monster_counter, bool& again);
 //void score();
-void tutorial(char field[][30]);
+void tutorial(char field[][30], bool& exit_loop);
 void draw_position(int& p_x, int& p_y, int m_x[100], int m_y[100]); // do sprawdzania bledow
 void continuation(bool& again);
 
@@ -80,7 +80,7 @@ void menu(char field[][30])
             exit_loop = true;
             break;
         case 50:
-            tutorial(field);
+            tutorial(field, exit_loop);
             break;
         case 51:
                 cout << "GOODBYE!";
@@ -228,7 +228,7 @@ void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100],
 void continuation(bool& again)
 {
     int choice;
-    cout << endl << "PLAY AGAIN [1]" << endl << "EXIT GAME [2]" << endl;
+    cout << endl << "GO BACK TO MENU [1]" << endl << "EXIT GAME [2]" << endl;
     while(again == true)
     {
     choice = getch();
@@ -249,7 +249,7 @@ void continuation(bool& again)
     }
 }
 
-void tutorial(char field[][30])
+void tutorial(char field[][30], bool& exit_loop)
 {
     system("cls");
     for(int i=0; i<30; i++)
@@ -267,19 +267,21 @@ void tutorial(char field[][30])
     cout << endl << "TYPE OPTION: ";
 
     int go_back;
-    bool exit_loop = true;
+    bool exit_loop1 = true;
     do
     {
         go_back = getch();
         switch(go_back)
         {
             case 49:
-                menu(field);
-                exit_loop = false;
+                exit_loop1 = false;
+                exit_loop = true;
                 break;
             default:
                 cout << "WRONG OPTION, PLEASE ENTER AGAIN" << endl;
                 break;
         }
-    }while(exit_loop==true);
+    }while(exit_loop1==true);
+
+    menu(field);
 }
