@@ -62,7 +62,7 @@ void menu(char field[][30])
     cout << endl << endl;
     cout << "       START GAME - [1]" << endl;
     cout << endl;
-    cout << "       SETTINGS - [2]" << endl;
+    cout << "       TUTORIAL - [2]" << endl;
     cout << endl;
     cout << "       EXIT - [3]" << endl;
     cout << endl;
@@ -267,7 +267,7 @@ void tutorial(char field[][30])
     cout << endl << "TYPE OPTION: ";
 
     int go_back;
-    bool exit_loop = false;
+    bool exit_loop = true;
     do
     {
         go_back = getch();
@@ -275,11 +275,11 @@ void tutorial(char field[][30])
         {
             case 49:
                 menu(field);
-                exit_loop = true;
+                exit_loop = false;
                 break;
             default:
                 cout << "WRONG OPTION, PLEASE ENTER AGAIN" << endl;
                 break;
         }
-    }while(exit_loop==false);
+    }while(exit_loop==true);
 }
