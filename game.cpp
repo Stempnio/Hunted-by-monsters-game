@@ -11,10 +11,11 @@ void menu(char field[][30]);
 void basic_field(char field[][30]);
 void player_movement(char field[][30], int& p_x, int& p_y);
 void monster_movement(char field[][30], int m_x[100], int m_y[100], int& p_x, int& p_y,  int& monster_counter);
-void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100],  int& monster_counter);
-void score();
-void settings();
+void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100],  int& monster_counter, bool& again);
+//void score();
+//void settings();
 void draw_position(int& p_x, int& p_y, int m_x[100], int m_y[100]);
+void continuation(bool& again);
 
 int main()
 {
@@ -24,23 +25,29 @@ int main()
     int p_y;
     int m_x[100];
     int m_y[100];
-    for(int i=0; i<100; i++)
-    {
-    m_x[i] = rand()%30;
-    m_y[i] = 0;
-    }
-    menu(field);
-    int monster_counter=1;
-    p_x=15;
-    p_y=17;
+    int monster_counter;
+    bool again;
     while(1)
     {
-    end_check(field, p_x, p_y, m_x, m_y, monster_counter);
-    //draw_position(p_x, p_y, m_x, m_y);
-    draw(field);
-    monster_movement(field, m_x, m_y, p_x, p_y, monster_counter);
-    player_movement(field, p_x, p_y);
-    draw(field);
+        for(int i=0; i<100; i++)
+        {
+            m_x[i] = rand()%30;
+            m_y[i] = 0;
+        }
+        menu(field);
+        monster_counter=1;
+        p_x=15;
+        p_y=17;
+        again = true;
+        while(again == true)
+        {
+        end_check(field, p_x, p_y, m_x, m_y, monster_counter, again);
+        //draw_position(p_x, p_y, m_x, m_y);
+        draw(field);
+        monster_movement(field, m_x, m_y, p_x, p_y, monster_counter);
+        player_movement(field, p_x, p_y);
+        draw(field);
+        }
     }
 
 }
@@ -74,7 +81,7 @@ void menu(char field[][30])
 
         //case 50: settings(); break;
         case 51:
-                cout << "Goodbye!";
+                cout << "GOODBYE!";
                 exit(0);
                 break;
         default:
@@ -190,15 +197,37 @@ void monster_movement(char field[][30], int m_x[100], int m_y[100], int& p_x, in
 
 }
 
-void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100], int& monster_counter)
+void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100], int& monster_counter, bool& again)
 {
     for(int i=0; i<monster_counter+1; i++)
     {
         if( (m_y[i] == p_y && m_x[i] == p_x-1) || (m_y[i] == p_y && m_x[i] == p_x+1) || (m_y[i] == p_y+1 && m_x[i] == p_x) || (m_y[i] == p_y-1 && m_x[i] == p_x))
         {
             cout << endl << "ZOSTALES ZLAPANY PRZEZ MONSTERA" << endl;
-            exit(0);
+            Sleep(3000);
+            continuation(again);
         }
+    }
+}
+
+void continuation(bool& again)
+{
+    int choice;
+    cout << endl << "PLAY AGAIN [1]" << endl << "EXIT GAME [2]" << endl;
+    choice = getch();
+
+    switch(choice)
+    {
+    case 49:
+        again = false;
+        break;
+    case 50:
+        cout << "GOODBYE!";
+        exit(0);
+        break;
+    default:
+        cout << "WRONG OPTION, PLEASE ENTER AGAIN" << endl;
+        break;
     }
 }
 
