@@ -35,12 +35,11 @@ int main()
     p_y=17;
     while(1)
     {
-    //end_check(field, p_x, p_y, m_x, m_y, monster_counter);
+    end_check(field, p_x, p_y, m_x, m_y, monster_counter);
     //draw_position(p_x, p_y, m_x, m_y);
     draw(field);
-    player_movement(field, p_x, p_y);
-    draw(field);
     monster_movement(field, m_x, m_y, p_x, p_y, monster_counter);
+    player_movement(field, p_x, p_y);
     draw(field);
     }
 
@@ -195,9 +194,9 @@ void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100],
 {
     for(int i=0; i<monster_counter+1; i++)
     {
-        if( (m_y[i] == p_y && m_x[i] == p_x-1) || (m_y[i] == p_y && m_x[i] == p_x+1) || (m_y[i] == p_y+1 && m_x[i] == p_x) || (m_y[i] == p_y-1 && m_x[i] == p_x) )
+        if( (m_y[i] == p_y && m_x[i] == p_x-1) || (m_y[i] == p_y && m_x[i] == p_x+1) || (m_y[i] == p_y+1 && m_x[i] == p_x) || (m_y[i] == p_y-1 && m_x[i] == p_x))
         {
-            cout << "kuniec" << endl;
+            cout << endl << "ZOSTALES ZLAPANY PRZEZ MONSTERA" << endl;
             exit(0);
         }
     }
