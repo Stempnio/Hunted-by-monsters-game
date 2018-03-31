@@ -47,6 +47,7 @@ int main()
             draw(field, score);
             monster_movement(field, m_x, m_y, p_x, p_y, monster_counter);
             player_movement(field, p_x, p_y, score);
+            Sleep(10);
             draw(field, score);
             end_check(field, p_x, p_y, m_x, m_y, monster_counter, again);
         }
@@ -139,10 +140,10 @@ void draw_position(int& p_x, int& p_y, int m_x[100], int m_y[100]) // do sprawdz
 
 void player_movement(char field[][30], int& p_x, int& p_y, int& score)
 {
-    int wsad;
-    wsad = getch();
 
-    switch(wsad)
+    if(_kbhit())
+    {
+    switch(getch())
     {
     case 119: // w
         if(p_y>0)
@@ -183,6 +184,7 @@ void player_movement(char field[][30], int& p_x, int& p_y, int& score)
     default: // popracuj
         break;
     }
+    }
 }
 
 void monster_movement(char field[][30], int m_x[100], int m_y[100], int& p_x, int& p_y, int& monster_counter) // do zoptymalizowania
@@ -209,7 +211,7 @@ void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100],
     {
         if( (m_y[i] == p_y && m_x[i] == p_x-1) || (m_y[i] == p_y && m_x[i] == p_x+1) || (m_y[i] == p_y+1 && m_x[i] == p_x) || (m_y[i] == p_y-1 && m_x[i] == p_x))
         {
-            cout << endl << endl << "ZOSTALES ZLAPANY PRZEZ MONSTERA" << endl;
+            cout << endl << endl << "YOU'VE GOT CAUGHT BY MONSTER" << endl;
             Sleep(1000);
             continuation(again);
         }
