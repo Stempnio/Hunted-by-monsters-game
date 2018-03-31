@@ -6,7 +6,7 @@
 
 using namespace std;
 void type_good();
-void draw(char field[][30], int& score);
+void draw(char field[][30], int& score, int& start);
 void menu(char field[][30], int& score);
 void basic_field(char field[][30]);
 void player_movement(char field[][30], int& p_x, int& p_y, int& score);
@@ -28,6 +28,7 @@ int main()
     int monster_counter;
     bool again;
     int score;
+    int start;
     while(1)
     {
         for(int i=0; i<100; i++)
@@ -41,13 +42,15 @@ int main()
         p_y=17;
         again = true;
         score = 0;
+        start = 0;
         while(again == true)
         {
             //draw_position(p_x, p_y, m_x, m_y);
-            draw(field, score);
+            draw(field, score, start);
             monster_movement(field, m_x, m_y, p_x, p_y, monster_counter);
             player_movement(field, p_x, p_y, score);
-            draw(field, score);
+            Sleep(10);
+            draw(field, score, start);
             end_check(field, p_x, p_y, m_x, m_y, monster_counter, again);
         }
     }
@@ -100,10 +103,13 @@ void basic_field(char field[][30])
 
     for(int i=0; i<20; i++)
         for(int j=0; j<30; j++)
-            field[i][j]='.';
+            field[i][j]=' ';
 }
-void draw(char field[][30], int& score1)
+void draw(char field[][30], int& score1, int& start)
 {
+    if(start == 0)
+        field[17][15] = 'P';
+    start++;
     system("cls");
     cout << "   ";
     for(int i=0; i<30; i++)
@@ -139,15 +145,14 @@ void draw_position(int& p_x, int& p_y, int m_x[100], int m_y[100]) // do sprawdz
 
 void player_movement(char field[][30], int& p_x, int& p_y, int& score)
 {
-    int wsad;
-    wsad = getch();
-
-    switch(wsad)
+    if(_kbhit())
+    {
+    switch(getch())
     {
     case 119: // w
         if(p_y>0)
         {
-            field[p_y][p_x] = '.';
+            field[p_y][p_x] = ' ';
             p_y--;
             field[p_y][p_x]= 'P';
         }
@@ -156,7 +161,7 @@ void player_movement(char field[][30], int& p_x, int& p_y, int& score)
     case 115: // s
         if(p_y<17) // 19 ale zanika przez m
         {
-            field[p_y][p_x] = '.';
+            field[p_y][p_x] = ' ';
             p_y++;
             field[p_y][p_x]= 'P';
         }
@@ -165,7 +170,7 @@ void player_movement(char field[][30], int& p_x, int& p_y, int& score)
     case 97: // a
         if(p_x>0)
         {
-            field[p_y][p_x] = '.';
+            field[p_y][p_x] = ' ';
             p_x--;
             field[p_y][p_x]= 'P';
         }
@@ -174,7 +179,7 @@ void player_movement(char field[][30], int& p_x, int& p_y, int& score)
     case 100: // d
         if(p_x<29)
         {
-            field[p_y][p_x] = '.';
+            field[p_y][p_x] = ' ';
             p_x++;
             field[p_y][p_x]= 'P';
         }
@@ -182,6 +187,7 @@ void player_movement(char field[][30], int& p_x, int& p_y, int& score)
         break;
     default: // popracuj
         break;
+    }
     }
 }
 
@@ -191,12 +197,12 @@ void monster_movement(char field[][30], int m_x[100], int m_y[100], int& p_x, in
     {
         if(m_y[i]<19)
         {
-            field[m_y[i]][m_x[i]] = '.';
+            field[m_y[i]][m_x[i]] = ' ';
             m_y[i]++;
             field[m_y[i]][m_x[i]] = 'M';
         }
         else
-            field[m_y[i]][m_x[i]] = '.';
+            field[m_y[i]][m_x[i]] = ' ';
     }
 
     if(monster_counter<100)
@@ -209,7 +215,7 @@ void end_check(char field[][30], int& p_x, int& p_y, int m_x[100], int m_y[100],
     {
         if( (m_y[i] == p_y && m_x[i] == p_x-1) || (m_y[i] == p_y && m_x[i] == p_x+1) || (m_y[i] == p_y+1 && m_x[i] == p_x) || (m_y[i] == p_y-1 && m_x[i] == p_x))
         {
-            cout << endl << endl << "ZOSTALES ZLAPANY PRZEZ MONSTERA" << endl;
+            cout << endl << endl << "YOU'VE GOT CAUGHT BY MONSTER" << endl;
             Sleep(1000);
             continuation(again);
         }
