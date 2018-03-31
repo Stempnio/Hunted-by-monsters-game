@@ -1,1 +1,1 @@
-# Second game c++
+# That is my first c++ game
