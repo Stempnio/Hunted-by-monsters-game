@@ -199,7 +199,7 @@ void monster_movement(char field[][30], int m_x[100], int m_y[100], int& p_x, in
         {
             field[m_y[i]][m_x[i]] = ' ';
             m_y[i]++;
-            field[m_y[i]][m_x[i]] = 'M';
+            field[m_y[i]][m_x[i]] = '+';
         }
         else
             field[m_y[i]][m_x[i]] = ' ';
@@ -253,7 +253,7 @@ void tutorial(char field[][30], bool& exit_loop, int& score)
         cout << '$';
 
     cout << endl << endl;
-    cout << "   IN THIS GAME YOU HAVE TO RUNAWAY FROM MONSTERS (M)" << endl;
+    cout << "   IN THIS GAME YOU HAVE TO RUNAWAY FROM MONSTERS (+)" << endl;
     cout << "   TO MOVE PRESS W,S,A,D" << endl;
     cout << "   YOU CAN AVOID MONSTERS BY GOING ONTO THEM IN PROPER WAY" << endl;
     cout << "   GO BACK TO MENU [1]" << endl << endl;
